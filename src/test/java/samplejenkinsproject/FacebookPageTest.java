@@ -9,15 +9,20 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class FacebookPageTest {
 	WebDriver driver = null;
 
 	@BeforeMethod
-	public void setUp() throws MalformedURLException {
+	@Parameters("browser")
+	public void setUp(String browser) throws MalformedURLException {
+		if(browser.equalsIgnoreCase("chrome"))
+		{
 		ChromeOptions opt = new ChromeOptions();
 		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), opt);
+		}
 		driver.get("https://facebook.com");
 	}
 
