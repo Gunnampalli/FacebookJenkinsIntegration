@@ -1,7 +1,11 @@
 package samplejenkinsproject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -11,8 +15,9 @@ public class FacebookPageTest {
 	WebDriver driver = null;
 
 	@BeforeMethod
-	public void setUp() {
-		driver = new ChromeDriver();
+	public void setUp() throws MalformedURLException {
+		ChromeOptions opt = new ChromeOptions();
+		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), opt);
 		driver.get("https://facebook.com");
 	}
 
@@ -23,6 +28,7 @@ public class FacebookPageTest {
 
 	@AfterMethod
 	public void tearDown() {
+		
 		driver.quit();
 	}
 }
