@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -18,10 +19,12 @@ public class FacebookPageTest {
 	@BeforeMethod
 	@Parameters("browser")
 	public void setUp(String browser) throws MalformedURLException {
-		if(browser.equalsIgnoreCase("chrome"))
-		{
-		ChromeOptions opt = new ChromeOptions();
-		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), opt);
+		if (browser.equalsIgnoreCase("chrome")) {
+			ChromeOptions opt = new ChromeOptions();
+			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), opt);
+		} else if (browser.equalsIgnoreCase("firefox")) {
+			FirefoxOptions opt = new FirefoxOptions();
+			driver = new RemoteWebDriver(new URL("http://localhost:4445/wd/hub"), opt);
 		}
 		driver.get("https://facebook.com");
 	}
@@ -33,7 +36,7 @@ public class FacebookPageTest {
 
 	@AfterMethod
 	public void tearDown() {
-		
+
 		driver.quit();
 	}
 }
